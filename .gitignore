@@ -1,6 +1,24 @@
 .venv/
+venv
 __pycache__/
 .streamlit/secrets.toml
 .streamlit/config.toml
 .idea/
 data/data_for_labeling.csv
+
+/venv
+.env
+
+# Django
+clires_project/.env
+clires_project/db.sqlite3
+clires_project/staticfiles/
+clires_project/media/
+*.pyc
+*.pyo
+.vercel
+.DS_Store
+
+# db
+db.sqlite3
+cache
