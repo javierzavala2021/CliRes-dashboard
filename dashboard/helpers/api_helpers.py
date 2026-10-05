@@ -3,7 +3,9 @@ import pandas as pd
 from datetime import timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
-from django.core.cache import cache
+from importlib import import_module
+
+cache = import_module("django.core.cache").cache
 
 from dashboard.helpers.config import COL_TIMESTAMP, COL_PLANT_NAME
 from dashboard.helpers.cache_utils import DataResult
