@@ -2,10 +2,10 @@ import os
 import joblib
 import pandas as pd
 import numpy as np
-from django.shortcuts import render
+from django.shortcuts import render  
 from django.http import HttpResponse
-from django.contrib import messages
-from django.core.cache import cache
+from django.contrib import messages 
+from django.core.cache import cache 
 from django.conf import settings
 from datetime import timedelta, date
 
@@ -135,7 +135,7 @@ def home_view(request):
         request.session.save()
 
     today = date.today()
-    context = {
+    context: dict[str, object] = {
         'api_df_exists': get_session_df(request, 'api_df') is not None,
         'kestrel_df_exists': get_session_df(request, 'kestrel_df') is not None,
         'combined_df_exists': get_session_df(request, 'combined_df') is not None,
@@ -167,6 +167,9 @@ def devices_list(request):
         devices_html = f'<select name="selected_devices" multiple class="w-full border border-slate-300 rounded-xl px-3 py-1.5 text-sm h-28 focus:ring-2 focus:ring-primary/20 focus:border-primary transition"><option disabled>{error}</option></select>'
         return HttpResponse(devices_html)
 
+    if devices is None:
+        devices = []
+
     rows = ''.join(
         f'<option value="{d["name"]}">{d["name"]}</option>'
         for d in devices
@@ -185,7 +188,7 @@ def dashboard_view(request):
         request.session.save()
 
     today = date.today()
-    context = {
+    context: dict[str, object] = {
         'default_start_date': (today - timedelta(days=30)).isoformat(),
         'default_end_date': today.isoformat(),
     }
