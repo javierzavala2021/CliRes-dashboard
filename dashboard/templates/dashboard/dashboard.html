@@ -5,6 +5,19 @@
 {% block content %}
 
 <!-- ================================================================ -->
+<!-- GLOBAL SYSTEM ALERT -->
+<!-- ================================================================ -->
+<div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6 flex items-start gap-3 shadow-sm">
+    <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
+    <div>
+        <h3 class="text-sm font-semibold text-amber-800">ePlant Telemetry Notice</h3>
+        <p class="text-sm text-amber-700 mt-1">
+            Live ePlant sensor telemetry permanently ceased recording in <strong>June 2026</strong>. Data requested after this period will only reflect archived records or alternative hardware uploads.
+        </p>
+    </div>
+</div>
+
+<!-- ================================================================ -->
 <!-- COLLAPSIBLE DATA TOOLBAR -->
 <!-- ================================================================ -->
 <details id="data-toolbar" class="mb-6" open>
@@ -12,6 +25,8 @@
         <i data-lucide="database" class="w-4 h-4"></i>
         <span>Data Sources</span>
     </summary>
+
+    
 
     <div class="bg-white rounded-b-2xl border border-t-0 border-slate-200 p-5 -mt-1 shadow-sm">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
@@ -35,11 +50,15 @@
                     </div>
                     <div id="device-select-container">
                         {% if sidebar_devices %}
-                            <select name="selected_devices" multiple class="w-full border border-slate-300 rounded-xl px-3 py-1.5 text-sm h-72 focus:ring-2 focus:ring-primary/20 focus:border-primary transition">
+                            <!-- Scrollable Checkbox List -->
+                            <div class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm h-72 overflow-y-auto bg-white space-y-1 shadow-inner">
                                 {% for d in sidebar_devices %}
-                                <option value="{{ d.name }}">{{ d.name }}</option>
+                                <label class="flex items-center gap-2 cursor-pointer hover:bg-slate-50 p-1.5 rounded transition">
+                                    <input type="checkbox" name="selected_devices" value="{{ d.name }}" class="rounded border-slate-300 text-primary focus:ring-primary">
+                                    <span class="text-slate-700">{{ d.name }}</span>
+                                </label>
                                 {% endfor %}
-                            </select>
+                            </div>
                         {% else %}
                             <div hx-get="/api/devices/list/" hx-trigger="load" hx-swap="innerHTML">
                                 <div class="flex items-center gap-2 py-2">
